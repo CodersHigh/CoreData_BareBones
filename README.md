@@ -5,6 +5,12 @@
 - Core Data의 기본적인 기능 구현을 익히는 데에 도움을 주는 Bare-bones 프로젝트입니다.
 - Core Data를 통해 **SwiftUI 기반의 간단한 메모장**을 구현합니다.
 - Core Data를 처음 활용해 보는 경우, 이 프로젝트의 코드를 살펴보면 도움이 됩니다.
+
+
+https://user-images.githubusercontent.com/74223246/177270661-357162cf-39ce-4af4-b54d-f0d89725de5b.mp4
+
+
+
 <br/>
 
 ### Core Data 란?   
