@@ -9,12 +9,12 @@ import Foundation
 import CoreData
 
 class MemoViewModel: ObservableObject {
-    @Published var movies = [Memo]()
+    @Published var memos = [Memo]()
     
     let persistentContainer: NSPersistentContainer
     
     init() {
-        persistentContainer = NSPersistentContainer(name: "Memo")
+        persistentContainer = NSPersistentContainer(name: "MemoModel")
         persistentContainer.loadPersistentStores { (description, error) in
             if let error = error {
                 fatalError("Core Data Store failed: \(error.localizedDescription)")
@@ -22,31 +22,35 @@ class MemoViewModel: ObservableObject {
         }
     }
     
-    func updateMemo() {
+    func dateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
+    func saveContext() {
         do {
             try persistentContainer.viewContext.save()
         } catch {
-            print("Failed to update memo: \(error.localizedDescription)")
+            print("Failed to save context: \(error.localizedDescription)")
         }
     }
     
     func deleteMemo(memo: Memo) {
         persistentContainer.viewContext.delete(memo)
-        
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            print("Failed to delete memo: \(error.localizedDescription)")
-        }
+        saveContext()
     }
     
-    func fetchMemo() -> [Memo] {
+    func fetchMemo() {
         let fetchRequest: NSFetchRequest<Memo> = Memo.fetchRequest()
+        let dateSort = NSSortDescriptor(key:"date", ascending: false)
+        fetchRequest.sortDescriptors = [dateSort]
         
         do {
-            return try persistentContainer.viewContext.fetch(fetchRequest)
+            try self.memos = persistentContainer.viewContext.fetch(fetchRequest)
         } catch {
-            return []
+            print("Failed to fetch memo: \(error.localizedDescription)")
         }
     }
     
@@ -54,12 +58,8 @@ class MemoViewModel: ObservableObject {
         let memo = Memo(context: persistentContainer.viewContext)
         memo.title = title
         memo.content = content
-        
-        do {
-            try persistentContainer.viewContext.save()
-        } catch {
-            print("Failed to add movie: \(error.localizedDescription)")
-        }
+        memo.date = Date()
+        saveContext()
     }
     
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct CoreData_BareBoneApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MemoListView()
         }
     }
 }
