@@ -20,7 +20,19 @@ Apple이 제공하는 [Core Data Programming Guide](https://developer.apple.com/
 지속성을 포함하여 객체 수명 주기 및 객체 그래프 관리와 관련된 작업에 일반화 및 자동화된 솔루션을 제공합니다.”*     
 
 쉽게 말해 Core Data는 **디바이스에 영구적인 데이터를 저장할 수 있게 해주는 프레임워크**입니다.     
-따라서 해당 프로젝트인 메모장과 같이 오프라인 영구 저장소가 필요한 앱에 활용할 수 있습니다.    
+따라서 해당 프로젝트인 메모장과 같이 오프라인 영구 저장소가 필요한 앱에 활용할 수 있습니다. 
+
+Core Data가 데이터 모델 객체의 역할을 하기 때문에 모델을 따로 정의할 필요가 없습니다.   
+[Core Data에서 모델을 생성하는 방법](https://codershigh.notion.site/Core-Data-16e1c71cf0824489b37d2b6036c8c3c9)에 대해 알아보세요.   
+
+**Core Data Stack 알아보기**
+<img width="700" alt="스크린샷 2022-07-06 오전 11 29 39" src="https://user-images.githubusercontent.com/74223246/177455146-61deeece-343b-4860-9a48-9ccd10f60ff7.png">
+- **NSManagedObjectModel**의 인스턴스는 앱의 유형, 속성 및 관계를 설명하는 앱의 모델 파일을 나타냅니다.
+- **NSManagedObjectContext**의 인스턴스는 앱 유형의 인스턴스에 대한 변경 사항을 추적합니다.
+- **NSPersistentStoreCoordinator**의 인스턴스는 스토어에서 앱 유형 의 인스턴스를 저장하고 가져옵니다.    
+
+**→ NSPersistentContainer의 인스턴스는 Model, Context 및 StoreCoordinator를 한 번에 설정합니다.**
+<br/>
 <br/>
 <br/>
 
@@ -30,6 +42,7 @@ Core Data에서 영구저장소 컨테이너를 다루고 컨텍스트를 저장
 
 ```Swift
 // persistentContainer 생성 및 초기화 
+// persistentContainer는 
 let persistentContainer: NSPersistentContainer
     
 init() {
