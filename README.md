@@ -42,7 +42,6 @@ Core Data에서 영구저장소 컨테이너를 다루고 컨텍스트를 저장
 
 ```Swift
 // persistentContainer 생성 및 초기화 
-// persistentContainer는 
 let persistentContainer: NSPersistentContainer
     
 init() {
